@@ -1,0 +1,33 @@
+Users
+text username  primary key
+text password
+text first name
+text last name
+text email
+
+Recipes
+integer id primary key
+text title
+text image_url
+integer servings
+integer cooking_time
+text instructions
+text cuisines
+text diet
+text nutrients
+
+Meal Plans
+integer id primary key
+integer recipe_id foreign key
+text username foreign key
+
+Shopping List
+text username foreign key
+date start_date
+date end_date
+
+
+
+Users has one to many with Meal Plans
+Meal Plans has one to many with Recipes
+Meal Plan has one to one with Shopping List
