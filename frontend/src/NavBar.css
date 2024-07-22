@@ -1,0 +1,23 @@
+.Navigation{
+    background-color: wheat;
+    border-bottom: 2px solid rgba(0,0,0,0.125);
+
+}
+
+.nav-link.active{
+    font-weight: bold;
+    color: black;
+
+}
+
+.nav-item{
+    display: inline-block;
+    padding: 5px 5px;
+    
+}
+
+.navbar-nav{
+    margin-right: 20px
+}
+
+

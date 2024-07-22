@@ -1,0 +1,17 @@
+.Home{
+    height: calc(100vh - 150px);
+    display: flex;
+    align-items: center;
+}
+
+button{
+    color: palegreen;
+}
+
+p{
+    color: white;
+}
+
+h2{
+    color: wheat;
+}

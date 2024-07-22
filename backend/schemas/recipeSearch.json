@@ -1,0 +1,31 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "http://example.com/recipeSearch.json",
+    "type": "object",
+    "properties": {
+        "title": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 50
+        },
+        "minServings": {
+            "type": "integer",
+            "minimum": 1
+        },
+        "maxServings": {
+            "type": "integer",
+            "minimum": 1
+        },
+        "cuisines":{
+            "type": "string"
+        },
+        "diets":{
+            "type": "string"
+        }
+    },
+    "additionalProperties": false,
+    "required": [
+      
+    ]
+
+}

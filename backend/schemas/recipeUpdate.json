@@ -1,0 +1,50 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "http://example.com/recipeUpdate.json",
+    "type": "object",
+    "properties": {
+        "title": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 50
+        },
+        "imageUrl": {
+            "type": "string",
+            "format": "uri"
+        },
+        "servings": {
+            "type": "integer",
+            "minimum": 1
+        },
+        "cookingTime": {
+            "type": "integer"
+        },
+        "instructions": {
+            "type": "string"
+        },
+        "cuisines":{
+            "type": "string"
+        },
+        "diets":{
+            "type": "string"
+        },
+        "dishTypes":{
+            "type": "string"
+        },
+        "ingredients":{
+            "type": "string"
+        },
+        "nutrientName":{
+            "type": "string"
+        },
+        "nutrientAmount":{
+            "type": "string"
+        }
+
+    },
+    "additionalProperties": false,
+    "required": [
+     
+    ]
+
+}
