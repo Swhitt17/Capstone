@@ -8,10 +8,17 @@ button{
     color: palegreen;
 }
 
-p{
-    color: white;
-}
 
 h2{
-    color: wheat;
+    color:black;
+    text-shadow: 1px 1px 2px white;
+}
+
+p{
+    text-shadow: 1px 1px 2px black;
+}
+
+h3{
+    color: #4a3432;
+    
 }

@@ -1,58 +1,78 @@
 import React, {useState,useEffect} from 'react';
 import RecipeCard from "./RecipeCard";
-// import RecipeDetail from "./RecipeDetail"
 import CapstoneApi from "../Api";
 import SearchForm from "../Forms/SearchForm";
-// import Paginate from './Paginate';
-import ReactPaginate from 'react-paginate';
+import Paginate from './Paginate';
+
 
 
 const RecipeList = () => {
-    const initialState = [];
+    
     const [recipes, setRecipes] = useState(null);
-    const [data, setData] = useState(initialState);
-    const [currentPage, setCurrentPage] = useState(1);
-    const [totalPages, setTotalPages] = useState(0);
-    const resultsPerPage = 50;
+    const [itemOffset, setItemOffset] = useState(0);
+    const [cu, setCuisine] = useState("");
+    const [dt, setDiet] = useState("");
+    const [ds, setDish] = useState("");
+    const [ti, setTitle] = useState("")
+    
+    
 
     useEffect(function getRecipesOnMount(){
         console.debug("RecipeList useEffect getRecipesOnMount")
         search();
     },[])
+    
 
-    async function search({cuisine, diet}){
-        console.log(cuisine, "cuisine")
-        console.log(diet, "diet")
-        let recipes = await CapstoneApi.getRecipes(cuisine, diet);
-        setRecipes(recipes);
-        setData(recipes.results)
-        console.log(recipes.results)
-         setTotalPages(Math.ceil(recipes.totalResults / resultsPerPage));
-        console.log(recipes.totalResults);
+    async function search({cuisine, diet,dish, title}){
+        console.log(cuisine, "cuisine, search");
+        console.log(dish, "dish")
+        console.log(dish, "dish")
+        console.log(title, "title"); 
+        setCuisine(cuisine);
+        setDiet(diet);
+        setDish(dish);
+        setTitle(title)
+        let recipesRes = await CapstoneApi.getRecipes(cuisine, diet,dish, title,itemOffset);
+        setRecipes(recipesRes);
+        console.log(recipesRes, "recipesR")
+        setItemOffset(recipesRes.offset)
+       
+
+       
+
+        console.log(recipesRes.totalResults)
+        console.log(recipesRes.offset)
+         console.log(cu, "cuisine")
+        console.log(dt, "diet")
+        console.log(ds, "dish")
+        console.log(ti, "title")
+      
+    }
+
+    async function handleClick(itemOffset){
+        // let recipes = await CapstoneApi.getRecipes(cuisine, diet,dish, title,time,itemOffset);
+        console.log(itemOffset, "offset")
+        setItemOffset(itemOffset)
+        let recipesArray = await CapstoneApi.getRecipes(cu, dt,ds, ti,itemOffset);
+        // console.log(cuisine,diet,dish, title, "recipesRes")
+        setRecipes(recipesArray);
+        console.log(cu, "cuisine")
+        console.log(dt, "diet")
+        console.log(ds, "dish")
+        console.log(ti, "title")
+
     }
 
 
-        
-  
-    // console.log(typeof(data))
-
-   
-
-    const handlePageChange = (selectedPage) => {
-     const startIndex = currentPage * resultsPerPage;
-    const endIndex = startIndex + resultsPerPage;
-    const currentResults = data.slice(startIndex, endIndex);
-    setData(currentResults)
-        setCurrentPage(selectedPage.selected);
-        console.log(selectedPage)
-    }
-
-    if(!recipes)return <h3> Loading... </h3>
+    if(!recipes)return  <SearchForm search={search}/>
 
     return (
         <div>
-            <h2>Recipes</h2>
+            
+            <div className='RecipeList col-md-8 offset-md-2'>
+                <h2 style={{textShadow: "2px 2px 2px white" }}>Recipes</h2>
             <SearchForm search={search}/>
+            <div className='RecipeList-list'>
 
             {recipes.results.length ? (
                 <div>
@@ -65,20 +85,22 @@ const RecipeList = () => {
                  
                     />
                 ))}
-{/* 
-                {currentResults.map((result) => (
-                    <div key={result.id}>{result.title}</div>
-                ))} */}
-                <ReactPaginate
-                pageCount={totalPages}
-                onPageChange={handlePageChange}
-                forcePage={currentPage}
-                
+
+                <Paginate
+                recipes={recipes.results}
+                totalResults={recipes.totalResults}
+                itemsPerPage={50}
+                itemOffset={itemOffset}
+                setItemOffset={setItemOffset}
+                handleClick={handleClick}
+               
                 />
                 </div>
             ):(
                 <p>Sorry, Cannot find any results</p>
             )}
+              </div>
+            </div>
         </div>
     );
 }

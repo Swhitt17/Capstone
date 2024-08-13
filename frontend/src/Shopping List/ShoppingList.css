@@ -1,0 +1,15 @@
+.ShoppingList-add{
+    color: white;
+    text-shadow: 2px 2px 2px #569964;
+    
+}
+
+
+.ShoppingList-gen{
+    color: white;
+    text-shadow: 2px 2px 2px #c993c8;
+}
+
+.list-group-item:before{
+    content: '🍋'
+}

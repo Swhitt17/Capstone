@@ -58,11 +58,12 @@ const Profile = () => {
 
     return (
         <div className="Profile" >
-            <h2 className="ProfileForm  col-md-6 col-lg-4 offset-md-3 offset-lg-4">Profile</h2>
+            <div className="container col-md-6 offset-md-3 col-lg-4 offset-lg-4">
+            <h2 style={{textShadow: "2px 2px 2px white" }} >Profile</h2>
               <div className="card">
                 <div className="card-body">
                  <form onSubmit={handleSubmit}>
-                    <div className="mb-3">
+                    <div className="form-group">
                   <label  htmlFor="username">Username</label>
                 <input
                 className="form-control"
@@ -140,6 +141,7 @@ const Profile = () => {
                 </button>
             </form>
               </div>
+            </div>
             </div>
         </div>
     )

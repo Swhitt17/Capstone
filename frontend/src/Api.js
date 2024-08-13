@@ -30,8 +30,10 @@ class CapstoneApi{
     /** Register */
     static async register(data){
         let res = await this.request(`auth/register`, data, "post");
+        console.log(res.data, "res.data")
         return res.token;
     }
+ 
 
     /**Login */
     static async login(data){
@@ -51,9 +53,9 @@ class CapstoneApi{
         return res.user;
     }
 
-    static async getRecipes(cuisine, diet){
-        console.log(cuisine, diet)
-        let res = await this.request("recipes", {cuisine, diet}, "get" );
+    static async getRecipes(cuisine, diet, dish,title,itemOffset){
+        console.log(cuisine, diet, dish,title)
+        let res = await this.request("recipes", {cuisine, diet, dish,title,itemOffset}, "get" );
         console.log(res)
         return res;
     }
@@ -65,18 +67,19 @@ class CapstoneApi{
         return res;
     }
 
-    static async getList(){
-        let res = await this.request("lists");
+    static async getList(username, userHash){
+        let res = await this.request("lists", {username, userHash}, "get");
         console.log(res)
         console.log(res.lists)
         return res
     }
 
-    static async postList(data){
-        let res = await this.request(`lists`, data, "post" );
+    static async postList(date,id, meal, position, title, servings ){
+        console.log(date,id, meal, position, title, servings, "plan api data")
+        let res = await this.request(`lists`, {date,id, meal, position, title, servings} , "post" );
         console.log(res)
         console.log(res.lists)
-        return res
+        return res.list
     }
 
 
@@ -87,6 +90,13 @@ class CapstoneApi{
         console.log(res.plan)
         return res.plan;
 
+    }
+
+    static async postPlan(data){
+        let res = await this.request(`plans`, data, "post");
+        console.log(res)
+        console.log(res.plan)
+        return res.plan;
     }
 
     static async removePlanDay(date,data){

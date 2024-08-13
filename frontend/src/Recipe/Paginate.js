@@ -1,33 +1,63 @@
-// import React from "react";
-// import ReactPaginate from "react-paginate";
-
-// const Paginate = () =>{
-    // const itemsPerPage = 50;
-    // const pageCount =  Math.ceil(totalResults / itemsPerPage)
-
-    // const handlePageChange =(selectedPage) => {
-    //     const startIndex = selectedPage * itemsPerPage;
-    //     const endIndex = startIndex + itemsPerPage;
-
-    //     const currentData = totalResults.slice(startIndex, endIndex)
-    // }
+import React, { useEffect, useState } from "react";
+import ReactPaginate from "react-paginate";
+import "./Paginate.css"
 
 
-//     return(
-//         <div>
-//             <ReactPaginate
-//              pageCount={pageCount}
-//              pageRangeDisplayed={5}
-//              marginPagesDisplayed={2}
-//              onPageChange={handlePageChange}
-//              containerClassName="pagination"
-//              activeClassName="active"
-//              nextLabel="next >"
-//              previousLabel="< previous"
-// />
-//         </div>
-//     )
+const Paginate = ({recipes,totalResults,itemsPerPage,itemOffset, setItemOffset, handleClick}) =>{
+    // const [itemOffset, setItemOffset] = useState(0);
+    const [currentItems, setCurrentItems] = useState([])
+    const [pageCount, setPageCount] = useState(0);
+    console.log(recipes)
 
-// }
+    // Simulate fetching items from another resources.
+    // (This could be items from props; or items loaded in a local state
+    // from an API endpoint with useEffect and useState)
+    useEffect(() => {
+        const endOffset = itemOffset + itemsPerPage;
+    console.log(`Loading items from ${itemOffset} to ${endOffset}`);
+    setCurrentItems(recipes.slice(itemOffset, endOffset));
+    setPageCount(Math.ceil(totalResults / itemsPerPage)); 
+    }, [itemOffset,recipes])
+   
 
-// export default Paginate;
+    //   useEffect(function getOffsetOnMount(){
+    //     async function getRecipes(offset){
+    //         setItemOffset(await CapstoneApi.getRecipes(newOffset))
+    //     }
+    //     getRecipes();
+    //   },[offset])
+  
+    // Invoke when user click to request another page.
+    const handlePageClick = (event) => {
+      const newOffset = (event.selected * itemsPerPage) % totalResults;
+      handleClick(newOffset);
+      console.log(
+        `User requested page number ${event.selected}, which is offset ${newOffset}`
+      );
+    
+      setItemOffset(newOffset);
+    };
+    return(
+        <div>
+            <ReactPaginate
+             activeClassName="item active"
+             breakClassName=" item break"
+             breakLabel="..."
+             containerClassName="pagination"
+             marginPagesDisplayed={2}
+             nextClassName=" item next"
+             nextLabel="next >"
+             onPageChange={handlePageClick}
+             pageCount={pageCount}
+             pageClassName="item pagination-page"
+             pageRangeDisplayed={5}
+             previousClassName=" item previous"
+             previousLabel="< previous"
+             onClick={() => setItemOffset(itemOffset)}
+/>
+        </div>
+    )
+
+}
+
+export default Paginate;

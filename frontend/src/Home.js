@@ -12,11 +12,11 @@ const Home = () => {
     return (
         <div className='Home'>
             <div className='container text-center'>
-              <h2 className='mb-4 fw-bold text-light'>Recipe Garden</h2>
-                 <p className='lead text-warning'> Find,Plan, Prepare, and Enjoy</p>
+              <h1 className='mb-4 fw-bold text-light'>Recipe Garden</h1>
+                 <h4 className=' text-info'> Find, Plan, Prepare, and Enjoy </h4>
             
             {currentUser ?
-            <h3>Welcome Back, {currentUser.username}!</h3>
+            <h2 style={{ color: "white",textShadow: "2px 2px 2px  #4370d1" }} >Welcome Back, {currentUser.username}!</h2>
             :(
                 <div> 
                   <h3 className='text-success'>Please log in or register to continue</h3>

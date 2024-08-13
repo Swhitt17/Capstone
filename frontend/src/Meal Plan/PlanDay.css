@@ -1,0 +1,8 @@
+.PlanDetail-item:before{
+content: '🥕'
+}
+
+
+.PlanDetail-ns:before{
+    content: '🍇'
+    }

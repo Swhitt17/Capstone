@@ -16,18 +16,24 @@ import ShoppingList from "./Shopping List/ShoppingList";
 import PlanCalendar from './Meal Plan/PlanCalendar';
 import PrivateRoute from './PrivateRoute';
 import PlanDay from './Meal Plan/PlanDay';
+// import { CredentialContext } from './CredentialContext';
+import NotFound from './NotFound';
+// import './Calendar.css';
 
 export const TOKEN_ID = "capstone-token";
 
 function App() {
 const [token,setToken] = useLocalStorage(TOKEN_ID);
+// const [credentials, setCredentials] = useState(null)
 const [currentUser,setCurrentUser] = useState(null);
 
 async function register(registerData){
+  console.log(registerData)
   let token = await CapstoneApi.register(registerData)
   setToken(token);
   return {success:true};
 }
+
 
 async function login(loginData){
   let token = await CapstoneApi.login(loginData)
@@ -57,6 +63,7 @@ useEffect(function getUserData(){
   return (
     <div className="App">
       <UserContext.Provider value={{currentUser, setCurrentUser}}>
+      {/* <CredentialContext.Provider value={{credentials, setCredentials}}> */}
 
      <NavBar logout={logout}/>
       <Routes>
@@ -72,11 +79,13 @@ useEffect(function getUserData(){
         </Route>
 
 
-        <Route path='/register' element={<RegisterForm register={register}/>}></Route>
+        <Route path='/register' element={<RegisterForm register={register} />}></Route>
         <Route path='/login' element={<LoginForm login={login}/>}></Route>
+        <Route path='*' element={<NotFound />}></Route>
 
 
       </Routes> 
+      {/* </CredentialContext.Provider> */}
       </UserContext.Provider>
     
     </div>

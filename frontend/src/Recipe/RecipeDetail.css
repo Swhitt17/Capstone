@@ -1,3 +1,84 @@
+
 p {
-    color: black
+    color: #ffffff
+
+}
+
+.Recipe-Detail-n-list{
+    text-align: center;
+}
+
+.RecipeDetail-n{
+    list-style-type: none;
+    font-weight: bold;
+    font-size: large;
+    text-align: left;
+    display: inline-block;
+    color: #ffffff;
+    text-shadow: 2px 2px 2px black;
+}
+
+.n-item:before{
+    content:'🍓'
+}
+
+
+
+.RecipeDetail-ing{
+text-align: left;
+display: inline-block;
+font-size: large;
+list-style-type: none;
+color: #ffffff;
+text-shadow: 2px 2px 2px black;
+}
+
+.Recipe-Detail-ing-list{
+    text-align: center;
+    
+}
+
+
+.ing-item:before{
+    content:"🥦"
+}
+
+.RecipeDetail-ins{
+    text-align: center;
+    font-size: large;
+    text-shadow: 2px 2px 2px black;
+    position: relative;
+}
+.RecipeDetail-c{
+    color: #ffffff;
+    text-shadow: 2px 2px 2px black;
+}
+.RecipeDetail-dt{
+    color: #ffffff;
+    text-shadow: 2px 2px 2px black;
+}
+.RecipeDetail-ds{
+    color: #ffffff;
+    text-shadow: 2px 2px 2px black;
+}
+
+.RecipeDetail-s{
+    color: #ffffff;
+    text-shadow: 2px 2px 2px black;
+}
+
+.RecipeDetail-title{
+    color: #c993c8;
+    text-shadow: 2px 2px 2px black;
+}
+
+.RecipeDetail-time{
+    color: #e4e8cc;
+    text-shadow: 2px 2px 2px black;
+}
+
+.RecipeDetail-id{
+    color: #d9675d;
+    text-shadow: 2px 2px 2px black;
+
 }

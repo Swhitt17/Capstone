@@ -1,6 +1,8 @@
 import React,{useState} from "react";
 import Calendar from "react-calendar"
 import PlanDay from "./PlanDay";
+import "./PlanCalendar.css"
+import { CredentialContext } from "../CredentialContext";
 // import { useNavigate } from "react-router-dom";
 
 // import PlanAddForm from "../Forms/PlanAddForm";
@@ -39,7 +41,6 @@ const PlanCalendar = () => {
         const month = date[0]
         const year = date[2]
         const monthNumber = months[month]
-        console.log(months[month])
         
         
        setDateFormat (`${year}-${monthNumber}-${day}`)
@@ -50,7 +51,8 @@ const PlanCalendar = () => {
    
     return(
         <div>
-             <Calendar onClickDay={	handleOnClickDay} />
+             <h2 style={{textShadow: "2px 2px 2px white" }}>Meal Plans</h2>
+             <Calendar onClickDay={	handleOnClickDay} calendarType="gregory" />
              <PlanDay date={dateFormat}/>
      
 

@@ -6,14 +6,13 @@ import React, {useState} from "react";
         cuisine: "",
         diet: "",
         dish: "",
-        servings: "",
+        // servings: null,
         title: "",
-        time: ""
+        // time: null
     }
     const [formData,setFormData] = useState(initialState);
-    // const [formCuisineData, setFormCuisineData] = useState("");
-    // const [formDietData, setFormDietData] = useState("");
-
+   
+  
     const handleChange = e => {
         const {name, value} = e.target;
         setFormData({...formData, [name]: value})
@@ -21,29 +20,27 @@ import React, {useState} from "react";
        
     }
 
-    // const handleCuisineChange = e => {
-    //     setFormCuisineData(e.target.value);
-    // }
-    
-    // const handleDietChange = e => {
-    //     setFormDietData(e.target.value);
-    // }
 
     
     const handleSubmit = async(e) => {
         e.preventDefault();
-        search({cuisine: formData.cuisine,  diet:formData.diet})
-        setFormData(initialState)
+        search({cuisine: formData.cuisine,  diet:formData.diet, dish:formData.dish, title: formData.title})
+        // setFormData(initialState)
+        
     }
 
     return (
         <div className="SearchForm mb-4">
-            <form className="form-inline " onSubmit={handleSubmit}>
+            <div className="container col-md-6 offset-md-3 col-lg-4 offset-lg-4">
+                  <div className="card">
+                    <div className="card-body">
+                     <form className="form-inline " onSubmit={handleSubmit}>
 
-              <div>
-              <label htmlFor="cuisines-select">Select a cuisine</label>
 
-                <select name="cuisine" id="cuisines-select" value={formData.cuisine} onChange={handleChange}>
+                     <div>
+                <label htmlFor="cuisines-select">Select a cuisine</label>
+
+                <select name="cuisine" id="cuisines-select"  value={formData.cuisine}  onChange={handleChange}>
                 <option value ="">-- Please Select --</option>
                 <option value="african">African</option>
                 <option value="asian">Asian</option>
@@ -52,22 +49,20 @@ import React, {useState} from "react";
                 <option value ="cajun">Cajun</option>
                 <option value ="caribbean">Caribbean</option>
                 <option value ="chinese">Chinese</option>
-                <option value ="easterneuropean">Eastern European</option>
                 <option value ="european">European</option>
                 <option value ="french">French</option>
                 <option value ="german">German</option>
                 <option value ="greek">Greek</option>
                 <option value ="indian">Indian</option>
+                <option value ="irish">Irish</option>
                 <option value ="italian">Italian</option>
                 <option value ="japanese">Japanese</option>
                 <option value ="jewish">Jewish</option>
                 <option value ="korean">Korean</option>
-                <option value ="latinamerican">Latin American</option>
                 <option value ="mediterranean">Mediterranean</option>
                 <option value ="mexican">Mexican</option>
-                <option value ="middleeastern">Middle Eastern</option>
                 <option value ="nordic">Nordic</option>
-                <option value ="southern">Southern</option>
+                <option value ="southern">Southern (US)</option>
                 <option value ="spanish"> Spanish</option>
                 <option value ="thai">Thai</option>
                 <option value ="vietnamese">Vietnamese</option>
@@ -94,7 +89,7 @@ import React, {useState} from "react";
 
                 <div>
                 <label htmlFor="type-select">Select a dish type</label>
-                <select name="dishType" id="type-select" value={formData.dish} onChange={handleChange}>
+                <select name="dish" id="type-select" value={formData.dish} onChange={handleChange}>
                     <option value="">-- Please Select --</option>
                     <option value="maincourse">Main Course</option>
                     <option value="sidedish">Side Dish</option>
@@ -113,11 +108,10 @@ import React, {useState} from "react";
                 </div>
 
 
-                <div>
+                {/* <div>
                 <label htmlFor="servings">Number of Servings</label>
                 <input
                 type ="range"
-                list="tickmarks"
                 id="servings"
                 name="servings"
                 min="1"
@@ -125,12 +119,13 @@ import React, {useState} from "react";
                 value={formData.servings}
                 onChange={handleChange}
                 />
-                </div>
+                <h4>{formData.servings}</h4>
+                </div> */}
 
-                <div className="col-sm-3 my-1">
+                <div className="form-group">
                 <label htmlFor="title">Recipe Title</label>
                 <input
-                className="form-control mb-2 mr-sm-2 "
+                className="form-control  "
                 type ="text"
                 id="title"
                 name="title"
@@ -139,7 +134,7 @@ import React, {useState} from "react";
                 />
                 </div>
 
-
+{/* 
                 <div className="col-sm-3 ">
                 <label htmlFor="cooking-time">Max Prep and Cook Time</label>
                 <input
@@ -152,7 +147,7 @@ import React, {useState} from "react";
                 value={formData.time}
                 onChange={handleChange}
                 />
-                </div>
+                </div> */}
 
                 <button
                 className="btn btn-md btn-success"
@@ -161,9 +156,9 @@ import React, {useState} from "react";
                 Submit
                 </button>
             </form>
-
-
-
+              </div>
+            </div>
+          </div>
         </div>
     )
  }

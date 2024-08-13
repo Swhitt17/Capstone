@@ -27,6 +27,7 @@ const RegisterForm = ({register}) => {
     async function handleSubmit(e){
         e.preventDefault();
         let res = await register(formData)
+       
         if(res.success){
             navigate('/')
             setFormData(initialState);
@@ -34,12 +35,14 @@ const RegisterForm = ({register}) => {
         else{
             setFormErrors(res.errors)
         }
+
+       
     }
 
     return (
         <div className='RegisterForm'>
             <div className='container col-md-6 offset-md-3 col-lg-4 offset-lg-4'>
-              <h2 className='mb-3'>Register</h2>
+              <h2 style={{textShadow: "2px 2px 2px white" }}>Register</h2>
                <div className='card'>
                  <div className='card-body'>
                   <form onSubmit={handleSubmit}>

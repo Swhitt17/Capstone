@@ -8,17 +8,16 @@ const RecipeCard = ({id,title,img}) => {
         <Link className="RecipeCard card" to={`/recipes/${id}`}>
             
             <div className="card-body">
-                <h6 className="card-title">
-                  {title}
+                <h6 className="card-title">{title} </h6>
+                
                   <div>
                    {img && <img src={img}
                   alt={title}
                   className="float-right ml-5"
-                  />}</div>
-                  </h6>
-
-                  
-                  {/* <p>{id}</p>  */}
+                  />}
+                  </div>
+                 
+                 
                 
         
             </div>

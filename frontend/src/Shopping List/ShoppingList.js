@@ -1,11 +1,15 @@
-import React,{useState, useEffect} from "react";
+import React,{useState, useEffect, useContext} from "react";
 import CapstoneApi from "../Api";
 import ListAddForm from "../Forms/ListAddForm";
 import ListGenerateForm from "../Forms/ListGenerateForm"
+import { UserContext } from "../UserContext";
+import "./ShoppingList.css";
 
 
 
 const ShoppingList = () => {
+
+    const {username, userHash} = useContext(UserContext);
     const initialState = [];
 
     const [items, setItems] = useState(initialState);
@@ -13,11 +17,14 @@ const ShoppingList = () => {
     useEffect(function getItemsOnMount(){
         console.debug("ShoppingList useEffect getItemsOnMount")
         show();
-    },[])
+    },[username,userHash])
 
     async function show(){
-        let items = await CapstoneApi.getList();
-        setItems(items);
+        
+           let items = await CapstoneApi.getList(username, userHash);
+           setItems(items);  
+     
+       
     }
 
     console.log(items)
@@ -46,6 +53,7 @@ const ShoppingList = () => {
 
     if(!items) return(
         <>
+        <h3>Your List is Empty</h3>
         <ListAddForm  addItem={addItem}/>
         <ListGenerateForm search={search}/>
         </>
@@ -53,7 +61,8 @@ const ShoppingList = () => {
     )  
     return (
         <div className="ShoppingList list">
-            <h2>Shopping List</h2>
+            <h2 style={{textShadow: "2px 2px 2px white" }}>Shopping List</h2>
+           
 
             {items.length  ? (
                 <div className="ShoppingList list">
@@ -62,21 +71,30 @@ const ShoppingList = () => {
                      {items.map((item, i) => (
                         
                       <li className="list-group-item" key={i}><span>{item}</span><button onClick={() => remove(item)}>X</button></li>
-                      
                 ))}
                  </ul>
-                 Add Item to List:  <ListAddForm  addItem={addItem}/>
-                 Generate From Meal Plan: <ListGenerateForm search={search}/>
-                </div>
+                  
+                 <h4 className="ShoppingList-add" >Add Item to List: </h4> 
+                 <ListAddForm  addItem={addItem}/>
+                 <h4 className="ShoppingList-gen">Generate From Meal Plan:</h4> 
+                 <ListGenerateForm search={search}/>
+                 </div>
+                
             ):(
                 <div>
               {/* <h4 className="lead">Click Add or Generate to start your list</h4> */}
-             Add Item to List:  <ListAddForm  addItem={addItem}/>
-             Generate From Meal Plan: <ListGenerateForm search={search}/>
+              <h4 className="ShoppingList-add">Add Item to List: </h4> 
+              <ListAddForm  addItem={addItem}/>
+             <h4 className="ShoppingList-gen">Generate From Meal Plan:</h4> 
+             <ListGenerateForm search={search}/>
              
              </div>
             )}
+        
 
+        
+
+            
       
         </div>
     );

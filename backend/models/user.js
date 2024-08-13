@@ -135,7 +135,7 @@ class User{
               WHERE username = $1`,
               [username],
         );
-        console.log(userRes, "user res")
+        // console.log(userRes, "user res")
 
         const user = userRes.rows[0];
    
