@@ -6,9 +6,9 @@ import React, {useState} from "react";
         cuisine: "",
         diet: "",
         dish: "",
-        // servings: null,
+        intolerance: "",
         title: "",
-        // time: null
+       
     }
     const [formData,setFormData] = useState(initialState);
    
@@ -24,7 +24,7 @@ import React, {useState} from "react";
     
     const handleSubmit = async(e) => {
         e.preventDefault();
-        search({cuisine: formData.cuisine,  diet:formData.diet, dish:formData.dish, title: formData.title})
+        search({cuisine: formData.cuisine,  diet:formData.diet, dish:formData.dish, intolerance:formData.intolerance, title: formData.title})
         // setFormData(initialState)
         
     }
@@ -107,20 +107,26 @@ import React, {useState} from "react";
                 </select>
                 </div>
 
+                <div>
+                <label htmlFor="type-select">Select an intolerance</label>
+                <select name="intolerance" id="type-select" value={formData.intolerance} onChange={handleChange}>
+                    <option value="">-- Please Select --</option>
+                    <option value="dairy">Dairy</option>
+                    <option value="egg">Egg</option>
+                    <option value="gluten">Gluten</option>
+                    <option value="grain">Grain</option>
+                    <option value="peanut">Peanut</option>
+                    <option value="seafood">Seafood</option>
+                    <option value="sesame">Sesame</option>
+                    <option value="shellfish">Shellfish</option>
+                    <option value="soy">Soy</option>
+                    <option value="sulfite">Sulfite</option>
+                    <option value="treenut">Tree Nut</option>
+                    <option value="wheat">Wheat</option>
+                </select>
+                </div>
 
-                {/* <div>
-                <label htmlFor="servings">Number of Servings</label>
-                <input
-                type ="range"
-                id="servings"
-                name="servings"
-                min="1"
-                max="15"
-                value={formData.servings}
-                onChange={handleChange}
-                />
-                <h4>{formData.servings}</h4>
-                </div> */}
+
 
                 <div className="form-group">
                 <label htmlFor="title">Recipe Title</label>
@@ -134,20 +140,6 @@ import React, {useState} from "react";
                 />
                 </div>
 
-{/* 
-                <div className="col-sm-3 ">
-                <label htmlFor="cooking-time">Max Prep and Cook Time</label>
-                <input
-                className="form-control"
-                type ="number"
-                id="cooking-time"
-                name="time"
-                min="5"
-                max="180"
-                value={formData.time}
-                onChange={handleChange}
-                />
-                </div> */}
 
                 <button
                 className="btn btn-md btn-success"
@@ -158,8 +150,8 @@ import React, {useState} from "react";
             </form>
               </div>
             </div>
-          </div>
-        </div>
+           </div>
+         </div>
     )
  }
 

@@ -50,8 +50,8 @@ class User{
     */
 
 
-    static async register({username,password, firstName, lastName, email, isAdmin}){
-        console.log(username,password,firstName,lastName,email, "data")
+    static async register({username,password, firstName, lastName, email, spUsername, spPassword, userHash, isAdmin}){
+        console.log(username,password,firstName,lastName,email,spUsername, spPassword, userHash, "data")
         
         // const duplicateRes = await db.query(
         //     `SELECT username,
@@ -75,16 +75,22 @@ class User{
             first_name,
             last_name,
             email,
+            sp_username,
+            sp_password,
+             user_hash,
             is_admin)
-            VALUES($1, $2, $3, $4, $5, $6)
-            RETURNING username, first_name AS "firstName", last_name AS "lastName", email, is_admin AS "isAdmin"`,
+            VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9)
+            RETURNING username, first_name AS "firstName", last_name AS "lastName", email, sp_username AS "spUsername", sp_password AS "spPassword", user_hash AS "userHash", is_admin AS "isAdmin"`,
             [
                 username,
                 hashedPassword,
                 firstName,
                 lastName,
                 email,
-                isAdmin,
+                spUsername,
+                spPassword,
+                userHash,
+                isAdmin
             ]
         );
 
@@ -93,6 +99,24 @@ class User{
         const user = result.rows[0];
 
         return user;
+    }
+
+
+    static async getData(username){
+        console.log("hi from get data")
+        const res = await db.query(
+            `SELECT username,
+             sp_username AS "spUsername",
+              sp_password AS "spPassword",
+              user_hash AS "userHash"
+             FROM users 
+             WHERE username = $1`,
+             [username]
+       );
+
+       const userData = res.rows[0];
+
+       return userData;
     }
 
     /** Find all users 

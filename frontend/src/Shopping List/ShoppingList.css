@@ -1,15 +1,57 @@
+.ShoppingList-title{
+    color:#d9675d ;
+    text-shadow: 1px 1px 1px gray;
+    font-family: "Cherry Swash";
+}
+
 .ShoppingList-add{
-    color: white;
-    text-shadow: 2px 2px 2px #569964;
+    color:#569964 ;
+    text-shadow: 1px 1px 1px gray;
     
 }
 
 
 .ShoppingList-gen{
-    color: white;
-    text-shadow: 2px 2px 2px #c993c8;
+    color:#c993c8 ;
+    text-shadow: 1px 1px 1px gray ;
 }
 
-.list-group-item:before{
-    content: '🍋'
+
+.ShoppingList-or{
+    color:#e09e53 ;
+    text-shadow: 1px 1px 1px gray ;
+}
+
+.ShoppingList-list{
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+ 
+}
+
+.list{
+    border: 1px solid #783e77;
+}
+
+.vertical{
+    border-left: 2px solid red;
+    position:absolute;
+    height:450px;
+    left:39.5%;
+    display: inline-block;
+    
+   
+    
+}
+.list-item:before{
+    content: '🍋';
+    
+}
+
+
+.list-item{
+    list-style-type: none;
+    text-align: start;
+    text-decoration: solid underline #4dacc9 2px;
 }

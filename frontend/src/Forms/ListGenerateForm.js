@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 
-const ListGenerateForm = ({search}) => {
+const ListGenerateForm = ({generate}) => {
 
     const initialState = {
         startDate: "",
@@ -9,13 +9,14 @@ const ListGenerateForm = ({search}) => {
      const [formData, setFormData] = useState(initialState);
 
      const handleChange = e => {
-        
-        setFormData( e.target.value)
+      const {name,value} = e.target
+      setFormData({...formData, [name]: value})
      }
 
      const handleSubmit = async(e) => {
         e.preventDefault();
-        search(formData)
+        console.log(formData.startDate, formData.endDate, "formData")
+        generate({startDate: formData.startDate, endDate: formData.endDate})
         setFormData(initialState)
      }
 
@@ -27,24 +28,24 @@ const ListGenerateForm = ({search}) => {
                     <div className="card-body">
                        <form onSubmit={handleSubmit}>
                         <div className="form-group">
-                          <label htmlFor="start-date">Select a Start Date: </label>
+                          <label htmlFor="startDate">Select a Start Date: </label>
                           <input 
                            className="form-control"
-                          id="start-date"
+                          id="startDate"
                           type="date"
-                          name="start-date"
+                          name="startDate"
                           value={formData.startDate}
                           onChange={handleChange}
                         />
                        </div>
 
                        <div className="form-group">
-                         <label htmlFor="end-date">Select an End Date: </label>
+                         <label htmlFor="endDate">Select an End Date: </label>
                          <input 
                          className="form-control"
-                          id="end-date"
+                          id="endDate"
                           type="date"
-                          name="end-date"
+                          name="endDate"
                           value={formData.endDate}
                           onChange={handleChange}
                         />

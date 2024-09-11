@@ -1,20 +1,20 @@
 import React, {useState} from "react";
 
-const PlanAddForm = ({ post}) => {
+const PlanAddForm = ({post}) => {
 
     const initialState = {
         date: "",
-        meal: "",
-        recipeId: "",
+        slot: null,
+        id: null,
         servings: null,
         position: null,
-        title: ""
+        title: "",
+        type:"RECIPE"
     }
   
      const [formData, setFormData] = useState(initialState);
 
      const handleChange = e => {
-      setFormData(e.target.value);
         const {name,value} = e.target
         setFormData({...formData, [name]: value})
      }
@@ -29,9 +29,8 @@ const PlanAddForm = ({ post}) => {
      const handleSubmit = async(e) => {
         e.preventDefault();
          let timestamp = convertToTimestamp(formData.date)
-        console.log({date: timestamp,meal: formData.meal,position: formData.position, id: formData.recipeId, servings: formData.servings,  title: formData.title  })
-        post({date: timestamp,  meal: formData.meal, position: formData.position,id: formData.recipeId, servings: formData.servings,title: formData.title  })
-          // addMeal({date: timestamp,  meal: formData.meal, position: formData.position,id: formData.recipeId,servings: formData.servings, title: formData.title  })
+        console.log({date: timestamp,slot: formData.slot,position: formData.position, id: formData.recipeId, servings: formData.servings,  title: formData.title  })
+        post({date: timestamp,  slot: +formData.slot, position: +formData.position,id: +formData.id, servings: +formData.servings,title: formData.title, type:"RECIPE"  })
         setFormData(initialState)
      }
 
@@ -59,8 +58,8 @@ const PlanAddForm = ({ post}) => {
                         </div>
 
                         <div className="form-group">
-                             <label htmlFor="meal">Enter the meal you want to add to </label>
-                             <select name="meal" id="meals-select" onChange={handleChange} value={formData.meal}>
+                             <label htmlFor="slot">Enter the meal you want to add to </label>
+                             <select name="slot" id="meals-select" onChange={handleChange} value={formData.slot}>
                                 <option value="">-- Please Select --</option>
                                 <option value="1">Breakfast</option>
                                 <option value="2">Lunch</option>
@@ -87,11 +86,11 @@ const PlanAddForm = ({ post}) => {
                           <label htmlFor="add-item">Enter the id of the recipe you want to add </label>
                           <input 
                             className="form-control"
-                            id="add-item"
-                            type="text"
-                            name="recipeId"
+                            id="id"
+                            type="number"
+                            name="id"
                             placeholder="716627"
-                            value={formData.recipeId}
+                            value={formData.id}
                             onChange={handleChange}
                           />
                           </div>  

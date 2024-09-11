@@ -1,8 +1,81 @@
+.PlanDetail-title{
+    width: 200px;
+    height: 100px;
+    border-radius: 15px ;
+    background-color: #382d2c;
+    display: flex;
+    align-items: center;
+    position: relative;
+    left: 680px;
+
+}
+
+.PlanDetail-date{
+    color: white;
+    font-family: "The Girl Next Door" 
+}
+
 .PlanDetail-item:before{
 content: '🥕'
 }
 
 
-.PlanDetail-ns:before{
-    content: '🍇'
-    }
+
+.PlanDetail-item{
+     list-style-type: none;
+}
+
+.table-container{
+        display: flex;
+    justify-content: center;
+}
+
+.PlanDetail-ns{
+   border-bottom: 1px solid gray;
+   padding: .25rem 0;
+   text-align: start;
+    list-style-type: none;
+}
+
+.PlanDetail-nutrition-table{
+ 
+    border-spacing: 2px;
+    border: 1px solid gray;
+    padding:10px;
+
+}
+
+.table-head{
+    display: table-header-group;
+    vertical-align: middle;
+    border-color: inherit;
+    padding: 10px;
+}
+
+.table-head-title{
+    margin-bottom: .5rem;
+    padding:0;
+    text-align: start;
+    font-size: 24px;
+}
+
+.table-body{
+    display: table-row-group;
+    vertical-align: middle;
+    border-color: inherit;
+}
+
+.table-empty{
+    padding: .5rem 0;
+    border-top: 1px solid gray;
+    border-bottom: 1px solid gray;
+    color: white;
+}
+
+.form-header{
+     text-shadow: 1px 1px 1px gray ;
+     color: #d9675d
+}
+
+
+    

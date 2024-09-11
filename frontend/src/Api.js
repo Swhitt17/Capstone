@@ -31,14 +31,16 @@ class CapstoneApi{
     static async register(data){
         let res = await this.request(`auth/register`, data, "post");
         console.log(res.data, "res.data")
-        return res.token;
+        return {token: res.token, data: res.data};
     }
  
 
     /**Login */
     static async login(data){
         let res = await this.request(`auth/login`, data, "post");
-        return res.token;
+        console.log(res.token, "token")
+        console.log(res.data, "login data")
+        return {token:res.token, data: res.data}
     }
 
     /** Get user by username */
@@ -53,9 +55,9 @@ class CapstoneApi{
         return res.user;
     }
 
-    static async getRecipes(cuisine, diet, dish,title,itemOffset){
-        console.log(cuisine, diet, dish,title)
-        let res = await this.request("recipes", {cuisine, diet, dish,title,itemOffset}, "get" );
+    static async getRecipes(cuisine, diet, dish, intolerance,title,itemOffset){
+        console.log(cuisine, diet, dish,intolerance,title)
+        let res = await this.request("recipes", {cuisine, diet, dish, intolerance,title,itemOffset}, "get" );
         console.log(res)
         return res;
     }
@@ -67,49 +69,59 @@ class CapstoneApi{
         return res;
     }
 
-    static async getList(username, userHash){
-        let res = await this.request("lists", {username, userHash}, "get");
+    static async getList(){
+        let res = await this.request("lists");
         console.log(res)
-        console.log(res.lists)
-        return res
+        return res;
     }
 
-    static async postList(date,id, meal, position, title, servings ){
-        console.log(date,id, meal, position, title, servings, "plan api data")
-        let res = await this.request(`lists`, {date,id, meal, position, title, servings} , "post" );
+    static async postList(newItem){
+      console.log(newItem, "data")
+        let res = await this.request(`lists`, {item:newItem, parse:true} , "post" );
         console.log(res)
-        console.log(res.lists)
-        return res.list
+        return res;
+    }
+
+    static async generateList(startDate, endDate){
+        console.log(startDate, endDate, "dates")
+        let res = await this.request(`lists/${startDate}/${endDate}`, "post");
+        console.log(res)
+        return res;
+    }
+
+    static async removeFromList(id){
+        console.log(id, "id")
+        let res = await this.request(`lists/${id}`, id,"delete")
+        console.log(res)
+        return res;
     }
 
 
-    static async getPlanDay(date){
-        // console.log(date)
-        let res = await this.request(`plans/${date}`);
+    static async getPlanDay(day){
+        console.log(day, "api day")
+        let res = await this.request(`plans/${day}`);
         console.log(res)
-        console.log(res.plan)
-        return res.plan;
+        return res;
 
     }
 
-    static async postPlan(data){
-        let res = await this.request(`plans`, data, "post");
+    static async postPlan(date, slot, position,id, servings, title, type ){ 
+         console.log(date,id, slot, position, title, servings,type, "plan api data")
+        let res = await this.request(`plans`, {date, slot, position,type, id, servings, title}, "post");
         console.log(res)
-        console.log(res.plan)
-        return res.plan;
+        return res;
     }
 
-    static async removePlanDay(date,data){
-        let res = await this.request(`plans/${date}`,data, "delete");
-        return res.json({message: "cleared"})
+    static async removePlanItem(id){
+        console.log(id, "id")
+        let res = await this.request(`plans/${id}`,id, "delete");
+        console.log(res, "res")
+        return res;
         
 
     }
 
-
-
 }
 
-// CapstoneApi.token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Im1odXluaDIwIiwiaXNBZG1pbiI6ZmFsc2UsImlhdCI6MTcyMDcxMDEzMH0.I2vZ9XVkDkXvbU72yukmdc9mJd_HT9KpnWL-HQgyvmY"
 
 export default CapstoneApi;

@@ -1,7 +1,9 @@
 import React, {useContext} from 'react';
 import {Link} from "react-router-dom";
 import { UserContext } from './UserContext';
-import "./Home.css"
+// import "./Home.css"
+import HomeCards from './HomeCards';
+
 
 
 
@@ -12,11 +14,19 @@ const Home = () => {
     return (
         <div className='Home'>
             <div className='container text-center'>
-              <h1 className='mb-4 fw-bold text-light'>Recipe Garden</h1>
-                 <h4 className=' text-info'> Find, Plan, Prepare, and Enjoy </h4>
+              <h1 className='title'>Recipe Garden</h1>
+                 <h4 className="subtitle"> Find, Plan, Prepare, and Enjoy </h4>
+                 
+
+                
             
             {currentUser ?
-            <h2 style={{ color: "white",textShadow: "2px 2px 2px  #4370d1" }} >Welcome Back, {currentUser.username}!</h2>
+            <div>
+            <h2 className='Home-subtitle' >Welcome Back, {currentUser.username}!</h2>
+
+            
+              <HomeCards />
+             </div>
             :(
                 <div> 
                   <h3 className='text-success'>Please log in or register to continue</h3>

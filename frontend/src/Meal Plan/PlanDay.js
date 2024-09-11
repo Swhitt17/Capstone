@@ -1,91 +1,124 @@
 import React,{useState, useEffect} from "react";
-// import {useParams} from "react-router-dom";
 import CapstoneApi from "../Api";
 import PlanAddForm from "../Forms/PlanAddForm";
-import { CredentialContext } from "../CredentialContext";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import "./PlanDay.css"
 
 
-const PlanDay = ({date}) => {
-    console.log(date, "date")
 
+const PlanDay = ({day}) => {
+    console.log(day, "day")
+
+    const initialState = [];
+    const [plan, setPlan] = useState(initialState);
     const [da, setDate] = useState("");
     const [rId, setId] = useState("");
-    const [ml, setMeal] = useState("");
+    const [sl, setSlot] = useState("");
     const [po, setPosition] = useState("")
     const [ti, setTitle] = useState("");
     const [se, setServings] = useState("");
+    const [ty, setType] = useState("RECIPE")
 
-
-
- const [plan, setPlan] = useState([]);
+   
 
     useEffect(function getPlanOnMount(){
         console.debug("PlanDay useEffect getPlanOnMount")
-           getPlanDay();
-    },[])
+           getPlanDay(day);
+    },[day])
 
 
- async function getPlanDay(){
-    const response = await CapstoneApi.getPlanDay(date)
-    console.log(response.data, "data")
-            setPlan(response.data)
+ async function getPlanDay(day){
+    try{
+        const response = await CapstoneApi.getPlanDay(day)
+        console.log(response, "response")
+        initialState.push(response)
+            setPlan(initialState)
         }
-
-    //   const addMeal = (newPlan) => {
-    //     setPlan(plan => [...plan,newPlan])
-    // }
-
-    //
-    async function post({date, meal, position, id,servings,title } ){
+        catch(err){
+            return <h3>No plan on that date</h3>
+        }
+    }
+        console.log(plan, "plan")
+ 
+    async function post({date, slot, position, id,servings,title, type } ){
         console.log(date, "date");
         console.log(id, "id");
-        console.log(meal, "meal");
+        console.log(slot, "meal");
         console.log(position, "position");
         console.log(title, "title");
         console.log(servings, "servings");
+        console.log(type, "type")
 
         setDate(date);
         setId(id);
-        setMeal(meal);
+        setSlot(slot);
         setPosition(position);
         setTitle(title);
         setServings(servings);
+        setType(type);
 
-        let planRes = await CapstoneApi.postPlan({date, meal, position,id, servings, title })
+        let planRes = await CapstoneApi.postPlan(date, slot, position, id, servings, title, type )
+        console.log(typeof(planRes))
         setPlan(planRes)
         console.log(planRes)
      
     }
 
-    function remove(item){
-        setPlan(plan.filter(p => p !== item))
-        console.log("removing:", item)
+     async function remove(id){
+        console.log("removing:", id)
+        await CapstoneApi.removePlanItem(+id)
+        setPlan(plan.filter((_,index) => index !== id))
+       
     }
 
-    if(!plan) return <h3>Cannot find any plans</h3>
 
     return (
         <div className="PlanDetail">
            
-            {plan.length ? (p => (
-              <div>
-                    <h2 className="PlanDetail-date">{date} {p.day}</h2>
-                    <ul>
-                        <li className="PlanDetail-item">{p.item}</li><button onClick={() => remove(p)}>X</button>
-                    </ul>
-                    <ul>
-                        <li className="PlanDetail-ns">{p.nutrients}</li>
+            {plan.length === 1  ? (
+                <div>
+                  
+                      <div className="PlanDetail-title">
+                     <h2 className="PlanDetail-date">{day} {plan[0].day}</h2>
+                     </div>
+                  
+                     <ul>
+                        {plan[0].items.map((item,i) => (
+                            <>
+                         <li className="PlanDetail-item" key={item.id} > Meal: {item.slot} Recipe Id:{item.value.id} Servings: {item.value.servings} Title: {item.value.title} </li><button onClick={() => remove(item.id)}><FontAwesomeIcon icon="fa-solid fa-rectangle-xmark" /></button>
+                         </>
+                        ))}
+                        
                     </ul>
 
+
+                    <div className="table-container">
+                      <table className="PlanDetail-nutrition-table">
+                        <thead className="table-head">
+                          <tr>
+                            <th className="table-head-title"> Daily Nutrition </th>
+                          </tr>
+                        </thead>
+                        <tbody className="table-body">
+                         <tr className="table-empty"> Empty </tr>
+                           {plan[0].nutrient.map((nrt, i) => ( 
+                         <tr index={i}>
+                           <td className="PlanDetail-ns" key={i}>{nrt}</td>
+                         </tr>
+                           ))}
+                        </tbody>
+                      </table>
+                    </div>
+            
                 </div>   
-                
-              )
-                
+            
+    
              ) : (
                 <div>
-               <h4 style={{color: "white", textShadow: "2px 2px 2px #d9675d" }}>Use the form to start your plan</h4>
+                  <h3>No plan on that date</h3>
+               <h4 className="form-header" >Use the form to start your plan</h4>
                <PlanAddForm  post={post}/>
-               {/* <button  className="btn btn-success float-right" >Add</button> */}
+               
                </div>
               )}
 

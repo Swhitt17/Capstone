@@ -1,4 +1,4 @@
-const supertest = require("supertest")
+const request = require("supertest")
 const app = require("../app");
 
 
@@ -7,17 +7,24 @@ describe("POST /plans", function(){
         const response = await request(app)
         .post("/plans")
         .send({ date: 1720540023, slot: 2, position: 0, type: "RECIPE",
-	    "value":{
-		"id": 716004,
-		"servings": 2}});
+	    value:{
+		id: 716004,
+		servings: 2,
+          title: "Quinoa and Chickpea Salad with Sun-Dried Tomatoes and Dried Cherries" }},
+        { date: 1720540023, slot: 3, position: 3, type: "RECIPE",
+            value:{
+            id: 1096195,
+            servings: 2,
+        title:"Peanut Butter Brownie Cheesecake" }},
+     );
         expect(response.statusCode).toEqual(200);
     })
 })
 
 
 describe("GET /plans/:date", function(){
-    test("should return lists", async function(){
-        const response = await request(app).get("/lists/2024-07-04");
+    test("should return plan for given date", async function(){
+        const response = await request(app).get("/plans/2024-07-04");
         expect (response.statusCode).toEqual(200);
     })
 
@@ -33,11 +40,11 @@ describe("DELETE /plans/:id", function(){
     })
 })
 
-describe("DELETE /lists/:date", function(){
+describe("DELETE /plans/:date", function(){
     test("should clear plan for date", async function(){
         const response = await request(app)
-        .delete("/lists/2024-07-01")
+        .delete("/plans/2024-07-04")
         expect(response.statusCode).toEqual(200);
-        expect(res.body).toEqual({cleared: "2024-07-01" });
+        expect(res.body).toEqual({cleared: "2024-07-04" });
     })
 })

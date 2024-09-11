@@ -1,39 +1,32 @@
 import React, { useEffect, useState } from "react";
 import ReactPaginate from "react-paginate";
-import "./Paginate.css"
+// import "./Paginate.css"
 
 
 const Paginate = ({recipes,totalResults,itemsPerPage,itemOffset, setItemOffset, handleClick}) =>{
-    // const [itemOffset, setItemOffset] = useState(0);
     const [currentItems, setCurrentItems] = useState([])
     const [pageCount, setPageCount] = useState(0);
-    console.log(recipes)
+    // console.log(recipes)
 
     // Simulate fetching items from another resources.
     // (This could be items from props; or items loaded in a local state
     // from an API endpoint with useEffect and useState)
     useEffect(() => {
         const endOffset = itemOffset + itemsPerPage;
-    console.log(`Loading items from ${itemOffset} to ${endOffset}`);
+    // console.log(`Loading items from ${itemOffset} to ${endOffset}`);
     setCurrentItems(recipes.slice(itemOffset, endOffset));
     setPageCount(Math.ceil(totalResults / itemsPerPage)); 
     }, [itemOffset,recipes])
    
 
-    //   useEffect(function getOffsetOnMount(){
-    //     async function getRecipes(offset){
-    //         setItemOffset(await CapstoneApi.getRecipes(newOffset))
-    //     }
-    //     getRecipes();
-    //   },[offset])
   
     // Invoke when user click to request another page.
     const handlePageClick = (event) => {
       const newOffset = (event.selected * itemsPerPage) % totalResults;
       handleClick(newOffset);
-      console.log(
-        `User requested page number ${event.selected}, which is offset ${newOffset}`
-      );
+      // console.log(
+      //   `User requested page number ${event.selected}, which is offset ${newOffset}`
+      // );
     
       setItemOffset(newOffset);
     };

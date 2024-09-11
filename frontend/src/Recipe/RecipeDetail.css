@@ -1,84 +1,165 @@
 
-p {
-    color: #ffffff
 
+.head-text{
+    position: relative;
+}
+.RecipeDetail-img{
+    width: 700px;
+    height:400px;
 }
 
-.Recipe-Detail-n-list{
-    text-align: center;
-}
-
-.RecipeDetail-n{
-    list-style-type: none;
-    font-weight: bold;
-    font-size: large;
-    text-align: left;
-    display: inline-block;
-    color: #ffffff;
-    text-shadow: 2px 2px 2px black;
-}
-
-.n-item:before{
-    content:'🍓'
+.RecipeDetail-sign{
+    width: 200px;
+    height: 100px;
+    border-radius: 15px ;
+    background-color: #382d2c;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
 }
 
 
 
 .RecipeDetail-ing{
 text-align: left;
-display: inline-block;
 font-size: large;
 list-style-type: none;
-color: #ffffff;
-text-shadow: 2px 2px 2px black;
+
 }
 
 .Recipe-Detail-ing-list{
     text-align: center;
+    padding-bottom: 3rem;
     
 }
-
 
 .ing-item:before{
     content:"🥦"
 }
+.RecipeDetail-instructions{
+    padding-bottom: 3rem;
+}
+.RecipeDetail-header{
+    color: white;
+    font-family: "The Girl Next Door" 
+}
 
-.RecipeDetail-ins{
-    text-align: center;
+.ain-item{
+    list-style-type:none ;
+    text-align: start;
     font-size: large;
-    text-shadow: 2px 2px 2px black;
-    position: relative;
+    /* font-weight: bold; */
+   
 }
-.RecipeDetail-c{
-    color: #ffffff;
-    text-shadow: 2px 2px 2px black;
+.ain-step{
+    color:purple;
+     font-weight: bold;
+     font-size: 18px;
+    
 }
-.RecipeDetail-dt{
-    color: #ffffff;
-    text-shadow: 2px 2px 2px black;
+
+.RecipeDetail-container{
+    border: 2px solid #68965f;
+    border-radius: .3125rem;
+    padding: 1.75rem 1.5rem 1.5rem;
+    padding-bottom: 3rem;
+
+
 }
-.RecipeDetail-ds{
-    color: #ffffff;
-    text-shadow: 2px 2px 2px black;
+.RecipeDetail-container:before{
+    position: absolute;
+    top:-.0625rem;
+    bottom:-.0625rem;
+    border-top:12px solid green;
+    border-radius: 4px 4px 0 0;
+    width: calc(100% + .125rem);
 }
+
+
 
 .RecipeDetail-s{
     color: #ffffff;
     text-shadow: 2px 2px 2px black;
+    position:absolute;
+    right: 50%;
+    left:10%;
+    bottom: 5%
 }
 
 .RecipeDetail-title{
     color: #c993c8;
     text-shadow: 2px 2px 2px black;
+    font-family: "Cherry Swash";
 }
 
 .RecipeDetail-time{
     color: #e4e8cc;
     text-shadow: 2px 2px 2px black;
+    position:absolute;
+    right: 50%;
+    left:15%;
+    bottom: 10%
 }
 
 .RecipeDetail-id{
     color: #d9675d;
     text-shadow: 2px 2px 2px black;
+    position:absolute;
+    right: 50%;
+    left:10%;
+    bottom: 15%
 
+}
+
+.table-container{
+    display: flex;
+    justify-content: center;
+}
+
+.RecipeDetail-nutrition-table{
+    border-spacing: 2px;
+    border:1px solid gray;
+    padding:10px;
+}
+
+.table-head{
+    display:table-header-group;
+    vertical-align: middle;
+    border-color: inherit;
+    padding: 10px;
+    
+}
+
+.table-head-title{
+    /* display: inline-block; */
+    margin-bottom: .5rem;
+    padding:0;
+    text-align: start;
+   font-size: 24px;
+}
+
+.table-head-subtitle{
+font-weight: 400;
+padding:0;
+text-align: start;
+}
+
+.table-body{
+    display: table-row-group;
+    vertical-align: middle;
+    border-color: inherit;
+
+}
+
+.table-empty{
+  padding: .5rem 0;
+  border-top:1px solid gray ;
+  border-bottom:1px solid gray ;
+  color:white;
+}
+
+.n-item{
+    border-bottom: 1px solid gray;
+    padding:.25rem 0;
+    text-align: start;
 }

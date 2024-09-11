@@ -27,4 +27,13 @@
     font-size: 18px;
 }
 
+.nav-item a:hover{
+    color: #565756;
+}
+
+a.navbar-brand:hover{
+color: #c72c96;
+
+}
+
 

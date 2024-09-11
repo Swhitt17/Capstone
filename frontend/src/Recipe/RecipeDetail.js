@@ -2,6 +2,7 @@ import React,{useState,useEffect} from "react";
 import {useParams} from "react-router-dom";
 import CapstoneApi from "../Api";
 import "./RecipeDetail.css"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const RecipeDetail = () => {
  const {id} = useParams();
@@ -22,28 +23,43 @@ const RecipeDetail = () => {
  return (
     <div className="RecipeDetail col-md offset-md-2">
         <h2 className="RecipeDetail-title">{recipe.title}</h2>
-        <div>
-           <img src={recipe.image} alt={recipe.title}/> 
+        <header>
+         <div className="head-text">
+         <div>
+           <img className="RecipeDetail-img" src={recipe.image} alt={recipe.title}/> 
         </div>
-        
-        <div>
+         <div>
             <h5 className="RecipeDetail-id"> Id: {recipe.id}</h5> 
         </div>
-        
-        <div>
-            <h5 className="RecipeDetail-time"> Ready In: {recipe.time} minutes</h5>
+         <div>
+            <h5 className="RecipeDetail-time"><FontAwesomeIcon icon="fa-solid fa-clock" /> {recipe.time} minutes</h5>
+        </div>     
+         <div>
+           <h5 className="RecipeDetail-s"><FontAwesomeIcon icon="fa-solid fa-utensils" /> {recipe.servings} servings</h5>
         </div>
 
+      </div>
+        </header>
+       
+      
+       
+
        <div className="RecipeDetail-ing-list">
-           <ul className="RecipeDetail-ing"> Ingredients: 
+         <div className="RecipeDetail-sign">
+            <h2 className="RecipeDetail-header">Ingredients</h2>
+         </div>
+         
+           <ul className="RecipeDetail-ing"> 
             {recipe.ingredients.map((ingredient, i) =>(
                <li className="ing-item" key={i}>{ingredient}</li>
 
             ))}
             
             </ul>
+            
         </div>
 
+      <div className="RecipeDetail-container">
         <div>
             <h5 className="RecipeDetail-c"> Cuisines: {recipe.cuisines + ""}</h5>
         </div>
@@ -55,30 +71,55 @@ const RecipeDetail = () => {
         <div>
            <h5 className="RecipeDetail-ds"> Dishes: {recipe.dishes + " "}</h5>
         </div>
-        
-        <div>
-             <p className="RecipeDetail-ins"> Instructions: {recipe.instructions}</p>
         </div>
-
-        <div>
-           <h5 className="RecipeDetail-s">Servings: {recipe.servings}</h5>
-        </div>
-
-        <div className="RecipeDetail-n-list">          
-           <ul className="RecipeDetail-n">  Nutrients:
-            {recipe.nutrients.map((nutrient, i) => (
-               <li className='n-item' key={i}>{nutrient} </li>
+      
+         
+         <div className="RecipeDetail-instructions">
+            <div className="RecipeDetail-sign" >
+            <h2 className="RecipeDetail-header">Instructions</h2>
+            </div>
+         <ol className="RecipeDetail-ain"> 
+            {recipe.ainstructions.map((step,index) =>(
+               <div key={index}>
+                  {step.steps.map((s,i)=>(
+                      <li className="ain-item" key={i}>Step {s.number} 
+                      <p className="ain-step">{s.step}</p>
+                      </li>
+                  ))}
+                  
+               </div>
+               
+         
             ))}
-            
-            </ul>
+         </ol>
+         
+        </div>  
+
+        <div className="table-container">
+         <table className="RecipeDetail-nutrition-table">
+            <thead className="table-head">
+               <tr>
+                  <th className="table-head-title">Nutrition Facts </th>
+               </tr>
+                <tr>
+                  <th className="table-head-subtitle">
+                     <span className="table-head-pretext">Servings: </span>
+                     <span>{recipe.servings}</span>
+                  </th>
+               </tr>
+            </thead>
+            <tbody className="table-body">
+               <tr className="table-empty"> Empty </tr>
+               {recipe.nutrients.map((nutrient, i) => (
+                  <tr index={i}>
+                    <td className='n-item' key={i}>{nutrient}</td>
+                  </tr>
+            ))}
+            </tbody>
+         </table>
         </div>
 
-        {/* <div>
-          <h5></h5>
-        </div>
-        <div>
-          <h5></h5>
-        </div> */}
+
        
     </div>
  )

@@ -3,6 +3,8 @@ import RecipeCard from "./RecipeCard";
 import CapstoneApi from "../Api";
 import SearchForm from "../Forms/SearchForm";
 import Paginate from './Paginate';
+import { Row } from 'reactstrap';
+// import "./RecipeList.css"
 
 
 
@@ -13,7 +15,8 @@ const RecipeList = () => {
     const [cu, setCuisine] = useState("");
     const [dt, setDiet] = useState("");
     const [ds, setDish] = useState("");
-    const [ti, setTitle] = useState("")
+    const [il, setIntolerance] = useState("");
+    const [ti, setTitle] = useState("");
     
     
 
@@ -23,59 +26,51 @@ const RecipeList = () => {
     },[])
     
 
-    async function search({cuisine, diet,dish, title}){
-        console.log(cuisine, "cuisine, search");
+    async function search({cuisine, diet,dish,intolerance, title}){
+        console.log(cuisine, "cuisine");
+        console.log(diet, "diet")
         console.log(dish, "dish")
-        console.log(dish, "dish")
+        console.log(intolerance, "intolerance")
         console.log(title, "title"); 
         setCuisine(cuisine);
         setDiet(diet);
         setDish(dish);
-        setTitle(title)
-        let recipesRes = await CapstoneApi.getRecipes(cuisine, diet,dish, title,itemOffset);
+        setIntolerance(intolerance)
+        setTitle(title);
+        let recipesRes = await CapstoneApi.getRecipes(cuisine, diet,dish,intolerance, title,itemOffset);
+        console.log(typeof(recipesRes))
         setRecipes(recipesRes);
-        console.log(recipesRes, "recipesR")
         setItemOffset(recipesRes.offset)
        
-
-       
-
-        console.log(recipesRes.totalResults)
-        console.log(recipesRes.offset)
-         console.log(cu, "cuisine")
-        console.log(dt, "diet")
-        console.log(ds, "dish")
-        console.log(ti, "title")
-      
     }
 
     async function handleClick(itemOffset){
-        // let recipes = await CapstoneApi.getRecipes(cuisine, diet,dish, title,time,itemOffset);
         console.log(itemOffset, "offset")
         setItemOffset(itemOffset)
-        let recipesArray = await CapstoneApi.getRecipes(cu, dt,ds, ti,itemOffset);
-        // console.log(cuisine,diet,dish, title, "recipesRes")
+        let recipesArray = await CapstoneApi.getRecipes(cu, dt,ds, il, ti,itemOffset);
         setRecipes(recipesArray);
-        console.log(cu, "cuisine")
-        console.log(dt, "diet")
-        console.log(ds, "dish")
-        console.log(ti, "title")
-
+        console.log(cu, "cuisine");
+        console.log(dt, "diet");
+        console.log(ds, "dish");
+        console.log(il, "intolerance");
+        console.log(ti, "title");
     }
 
-
+    console.log(typeof(recipes))
     if(!recipes)return  <SearchForm search={search}/>
+    //
 
     return (
         <div>
-            
             <div className='RecipeList col-md-8 offset-md-2'>
-                <h2 style={{textShadow: "2px 2px 2px white" }}>Recipes</h2>
+                <h2 className='Recipelist-title'>Recipes</h2>
             <SearchForm search={search}/>
             <div className='RecipeList-list'>
+                <div className='row'>
 
             {recipes.results.length ? (
                 <div>
+                    <Row lg={3}>
                 {recipes.results.map(r => (
                     <RecipeCard 
                     key={r.id}
@@ -85,6 +80,7 @@ const RecipeList = () => {
                  
                     />
                 ))}
+                 </Row >
 
                 <Paginate
                 recipes={recipes.results}
@@ -97,9 +93,10 @@ const RecipeList = () => {
                 />
                 </div>
             ):(
-                <p>Sorry, Cannot find any results</p>
+                <h3 style={{color: "white",textShadow: "2px 2px 2px black" }} >Sorry, Cannot find any results</h3>
             )}
               </div>
+            </div>
             </div>
         </div>
     );

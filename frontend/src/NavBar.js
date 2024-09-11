@@ -1,7 +1,7 @@
 import React, {useContext} from 'react';
 import {Link} from "react-router-dom";
 import { UserContext } from './UserContext';
-import "./NavBar.css"
+// import "./NavBar.css"
 
 const NavBar = ({logout}) => {
     const {currentUser} = useContext(UserContext);
@@ -35,7 +35,7 @@ const NavBar = ({logout}) => {
                     <li className='nav-item me-4'>
                         <Link to="/profile">Profile</Link>
                     </li>
-                    <li className='nav-item '>
+                    <li className='nav-item'>
                         <Link to="/" onClick={logout}>Log out {currentUser.username}</Link>
                     </li>
                     

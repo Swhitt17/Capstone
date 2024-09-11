@@ -16,28 +16,35 @@ import ShoppingList from "./Shopping List/ShoppingList";
 import PlanCalendar from './Meal Plan/PlanCalendar';
 import PrivateRoute from './PrivateRoute';
 import PlanDay from './Meal Plan/PlanDay';
-// import { CredentialContext } from './CredentialContext';
 import NotFound from './NotFound';
-// import './Calendar.css';
+import { library } from '@fortawesome/fontawesome-svg-core';
+import {fas} from '@fortawesome/free-solid-svg-icons';
+import {far} from '@fortawesome/free-regular-svg-icons'; 
+library.add(fas, far)
+
+
 
 export const TOKEN_ID = "capstone-token";
 
 function App() {
 const [token,setToken] = useLocalStorage(TOKEN_ID);
+const [data, setData] = useState()
 // const [credentials, setCredentials] = useState(null)
 const [currentUser,setCurrentUser] = useState(null);
 
 async function register(registerData){
   console.log(registerData)
-  let token = await CapstoneApi.register(registerData)
-  setToken(token);
+  let response = await CapstoneApi.register(registerData)
+  setToken(response.token);
+  setData(response.data);
   return {success:true};
 }
 
 
 async function login(loginData){
-  let token = await CapstoneApi.login(loginData)
-  setToken(token);
+  let response = await CapstoneApi.login(loginData)
+  setToken(response.token);
+  setData(response.data);
   return {success:true};
 }
 

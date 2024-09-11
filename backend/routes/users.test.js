@@ -39,8 +39,7 @@ describe("POST /users", function(){
         expect(res.statusCode).toEqual(201);
         expect (res.body).toEqual({
             user:{
-                username: "new2",
-            password: "newPassword",
+                username: "new",
             firstName: "New",
             lastName: "User",
             email: "test@test.com",
@@ -53,7 +52,7 @@ describe("POST /users", function(){
         const res = await request(app)
         .post(`/users`)
         .send({
-            username: "new2",
+            username: "new",
             password: "newPassword1",
             firstName: "New",
             lastName: "User",
@@ -64,8 +63,7 @@ describe("POST /users", function(){
         expect(res.statusCode).toEqual(201);
         expect (res.body).toEqual({
             user:{
-                username: "new",
-            password: "newPassword1",
+            username: "new",
             firstName: "New",
             lastName: "User",
             email: "newuser@email.com",
@@ -74,7 +72,7 @@ describe("POST /users", function(){
         });
     });
 
-    test("non-admin not allowed", async function(){
+    test("non-admin user not allowed", async function(){
         const res = await request(app)
         .post(`/users`)
         .send({
@@ -106,8 +104,8 @@ describe("POST /users", function(){
         const res = await request(app)
         .post(`/users`)
         .send({
-            username: "new",
-            firstName: "New",
+                username: "new",
+               firstName: "New",
             })
             .set("authorization", `Bearer ${adminToken}`);
             expect(res.statusCode).toEqual(400);
@@ -118,7 +116,7 @@ describe("POST /users", function(){
         .post(`/users`)
         .send({
             username: "new",
-            firstName: "zzz",
+            firstName: 567,
             lastName: "User",
             email: "test@test.com",
             isAdmin: true
@@ -142,7 +140,6 @@ describe("GET /users", function (){
             [
                 {
                     username: "u1",
-                    password: "password1",
                     firstName: "UF1",
                     lastName: "UL1",
                     email:"u1@email.com",
@@ -150,7 +147,6 @@ describe("GET /users", function (){
                 },
                 {
                     username: "u2",
-                    password: "password2",
                     firstName: "UF2",
                     lastName: "UL2",
                     email:"u2@email.com",
@@ -158,7 +154,6 @@ describe("GET /users", function (){
                 },
                 {
                     username: "u3",
-                    password: "password3",
                     firstName: "UF3",
                     lastName: "UL3",
                     email:"u3@email.com",
@@ -168,7 +163,7 @@ describe("GET /users", function (){
         });
     });
 
-    test("non-admin not allowed", async function(){
+    test("non-admin user not allowed", async function(){
         const res = await request(app)
         .get(`/users`)
         .set("authorization", `Bearer ${u1Token}`);
@@ -176,16 +171,9 @@ describe("GET /users", function (){
         
         });
 
-        test("not signed-in user not allowed", async function(){
+        test("unrecognized user not allowed", async function(){
             const res = await request(app)
-            .post(`/users`)
-            .send({
-                username: "new",
-                firstName: "New",
-                lastName: "User",
-                email: "test@test.com",
-                isAdmin: true
-            })
+            .get(`/users`)
             expect(res.statusCode).toEqual(401);
             });
 
@@ -199,11 +187,10 @@ describe("GET /users/:username", function(){
         const res = await request(app)
         .get(`/users/u1`)
         .set("authorization", `Bearer ${adminToken}`);
-        expect(res.statusCode).toEqual(201);
+        expect(res.statusCode).toEqual(200);
         expect (res.body).toEqual({
             user:{
                 username: "u1",
-                password: "password1",
                 firstName: "UF1",
                 lastName: "UL1",
                 email:"u1@email.com",
@@ -217,11 +204,10 @@ describe("GET /users/:username", function(){
         const res = await request(app)
         .get(`/users/u1`)
         .set("authorization", `Bearer ${u1Token}`);
-        expect(res.statusCode).toEqual(201);
+        expect(res.statusCode).toEqual(200);
         expect (res.body).toEqual({
             user:{
                 username: "u1",
-                password: "password1",
                 firstName: "UF1",
                 lastName: "UL1",
                 email:"u1@email.com",
@@ -262,13 +248,12 @@ describe("PATCH /users/:username", function(){
     test("admin allowed", async function(){
         const res = await request(app)
         .patch(`/users/u1`)
-        .send({lastName: "ULN1"})
+        .send({lastName: "UNL1"})
         .set("authorization", `Bearer ${adminToken}`);
         expect(res.statusCode).toEqual(200);
         expect (res.body).toEqual({
             user:{
                 username: "u1",
-                password: "password1",
                 firstName: "UF1",
                 lastName: "UNL1",
                 email:"u1@email.com",
@@ -280,13 +265,12 @@ describe("PATCH /users/:username", function(){
     test("user allowed on own", async function(){
         const res = await request(app)
         .patch(`/users/u1`)
-        .send({lastName: "ULN1"})
+        .send({lastName: "UNL1"})
         .set("authorization", `Bearer ${u1Token}`)
         expect(res.statusCode).toEqual(200);
         expect (res.body).toEqual({
             user:{
                 username: "u1",
-                password: "password1",
                 firstName: "UF1",
                 lastName: "UNL1",
                 email:"u1@email.com",
@@ -314,7 +298,7 @@ describe("PATCH /users/:username", function(){
     test("responds with 404 for invalid data", async function(){
         const res = await request(app)
         .patch(`/users/u1`)
-        .send({lastName: "yyy"})
+        .send({lastName: 999})
         .set("authorization", `Bearer ${adminToken}`);
         expect(res.statusCode).toEqual(404);
        

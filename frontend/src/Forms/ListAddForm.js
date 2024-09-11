@@ -24,12 +24,12 @@ const ListAddForm = ({addItem}) => {
                <div className="card-body">
                  <form onSubmit={handleSubmit}>
                   <div className="form-group"> 
-                   <label htmlFor="add-item">Enter an item to add </label>
+                   <label htmlFor="item">Enter an item to add </label>
                    <input 
                    className="form-control"
-                    id="add-item"
+                    id="item"
                     type="text"
-                    name="add-item"
+                    name="item"
                     placeholder="3 bananas"
                     value={formData}
                     onChange={handleChange}

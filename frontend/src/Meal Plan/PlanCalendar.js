@@ -1,12 +1,10 @@
 import React,{useState} from "react";
 import Calendar from "react-calendar"
 import PlanDay from "./PlanDay";
-import "./PlanCalendar.css"
-import { CredentialContext } from "../CredentialContext";
-// import { useNavigate } from "react-router-dom";
+// import "./PlanCalendar.css"
 
-// import PlanAddForm from "../Forms/PlanAddForm";
-// import CapstoneApi from "../Api";
+
+
 
 
 
@@ -51,9 +49,9 @@ const PlanCalendar = () => {
    
     return(
         <div>
-             <h2 style={{textShadow: "2px 2px 2px white" }}>Meal Plans</h2>
+             <h2 className="PlanCalendar-title">Meal Plans</h2>
              <Calendar onClickDay={	handleOnClickDay} calendarType="gregory" />
-             <PlanDay date={dateFormat}/>
+             <PlanDay day={dateFormat}/>
      
 
         
