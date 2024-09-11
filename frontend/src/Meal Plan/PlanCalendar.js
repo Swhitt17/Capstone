@@ -1,16 +1,11 @@
 import React,{useState} from "react";
 import Calendar from "react-calendar"
 import PlanDay from "./PlanDay";
-// import "./PlanCalendar.css"
-
-
-
+import "./PlanCalendar.css"
 
 
 
 const PlanCalendar = () => {
-
-    // let navigate = useNavigate();
 
     
     const [dateFormat, setDateFormat] = useState("");

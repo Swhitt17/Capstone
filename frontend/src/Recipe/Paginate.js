@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import ReactPaginate from "react-paginate";
-// import "./Paginate.css"
+import "./Paginate.css"
 
 
 const Paginate = ({recipes,totalResults,itemsPerPage,itemOffset, setItemOffset, handleClick}) =>{

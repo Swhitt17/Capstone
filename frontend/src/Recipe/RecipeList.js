@@ -4,7 +4,7 @@ import CapstoneApi from "../Api";
 import SearchForm from "../Forms/SearchForm";
 import Paginate from './Paginate';
 import { Row } from 'reactstrap';
-// import "./RecipeList.css"
+import "./RecipeList.css"
 
 
 

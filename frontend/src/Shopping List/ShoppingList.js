@@ -55,7 +55,7 @@ console.log(items, "before mount")
         <div className="ShoppingList">
             <h2 className="ShoppingList-title">Shopping List</h2>
            
-            {items.length ?  (
+            {items.length > 0 ? (
                 <>
                 <div className="ShoppingList-list">
                     <ul className="list">
