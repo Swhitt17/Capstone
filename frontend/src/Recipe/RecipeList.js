@@ -27,36 +27,24 @@ const RecipeList = () => {
     
 
     async function search({cuisine, diet,dish,intolerance, title}){
-        console.log(cuisine, "cuisine");
-        console.log(diet, "diet")
-        console.log(dish, "dish")
-        console.log(intolerance, "intolerance")
-        console.log(title, "title"); 
         setCuisine(cuisine);
         setDiet(diet);
         setDish(dish);
         setIntolerance(intolerance)
         setTitle(title);
         let recipesRes = await CapstoneApi.getRecipes(cuisine, diet,dish,intolerance, title,itemOffset);
-        console.log(typeof(recipesRes))
         setRecipes(recipesRes);
         setItemOffset(recipesRes.offset)
        
     }
 
     async function handleClick(itemOffset){
-        console.log(itemOffset, "offset")
         setItemOffset(itemOffset)
         let recipesArray = await CapstoneApi.getRecipes(cu, dt,ds, il, ti,itemOffset);
         setRecipes(recipesArray);
-        console.log(cu, "cuisine");
-        console.log(dt, "diet");
-        console.log(ds, "dish");
-        console.log(il, "intolerance");
-        console.log(ti, "title");
+   
     }
 
-    console.log(typeof(recipes))
     if(!recipes)return  <SearchForm search={search}/>
     //
 

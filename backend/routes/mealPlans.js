@@ -89,16 +89,11 @@ router.get("/:date", async function(req,res,next){
 
 
     let username = res.locals.user.username;
-    console.log(res.locals.user.username," locals username")
    let userData = await User.getData(username)
-   console.log(userData, "data")
+  
 
    const sUsername = userData.spUsername;
    const sHash = userData.userHash;
-   console.log( userData.spUsername, " data username")
-
-   console.log(sHash, "hash")
-   console.log(sUsername, " sp username")
 
    
     const date = req.params.date;
@@ -132,7 +127,7 @@ router.get("/:date", async function(req,res,next){
        let nutrientData = nutrient.map(function(value, index){
         return value + " " + amount[index] + " "+ unit[index]
        })
-        //   console.log(response.data.items)      
+     
         return res.json({
             day: response.data.day,
             items: response.data.items,
@@ -152,19 +147,15 @@ router.get("/:date", async function(req,res,next){
 
 /** DELETE one item by item id */
 router.delete("/:id",  async function(req,res,next){
-    console.log("hi")
+ 
 
     let username = res.locals.user.username;
-    console.log(res.locals.user.username," locals username")
    let userData = await User.getData(username)
-   console.log(userData, "data")
+  
 
    const sUsername = userData.spUsername;
    const sHash = userData.userHash;
-   console.log( userData.spUsername, " data username")
 
-   console.log(sHash, "hash")
-   console.log(sUsername, " sp username")
 
     const id = +req.params.id
     console.log(id, "id")
@@ -179,35 +170,7 @@ router.delete("/:id",  async function(req,res,next){
     }
 });
 
-/**DELETE /[date] => {cleared: date} 
- * 
- * Authorization required: user or admin
-*/
 
-// router.delete("/:date", ensureCorrectUserOrAdmin, async function(req,res,next){
-
-//     let username = res.locals.user.username;
-//     console.log(res.locals.user.username," locals username")
-//    let userData = await User.getData(username)
-//    console.log(userData, "data")
-
-//    const sUsername = userData.spUsername;
-//    const sHash = userData.userHash;
-//    console.log( userData.spUsername, " data username")
-
-//    console.log(sHash, "hash")
-//    console.log(sUsername, " sp username")
-//     const date = req.params.date
-//     try{
-//         await axios.delete(
-//             `${BASE_URL}/mealplanner/${sUsername}/day/${date}?hash=${sHash}&apiKey=${API_KEY}`
-//         );
-//         return res.json({cleared: date });
-//     }
-//     catch(err){
-//         return next(err);
-//     }
-// });
 
 
 

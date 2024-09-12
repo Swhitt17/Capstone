@@ -14,7 +14,7 @@ const ShoppingList = () => {
     const [start, setStart ] = useState("")
     const [end, setEnd] = useState("")
     
-console.log(items, "before mount")
+
     useEffect(function getItemsOnMount(){
         console.debug("ShoppingList useEffect getItemsOnMount")
         show();
@@ -23,7 +23,7 @@ console.log(items, "before mount")
     async function show(){
            let itemsRes = await CapstoneApi.getList();
            setItems(itemsRes);  
-        console.log(items,"items during mount")
+        
     }
    
     
@@ -34,17 +34,13 @@ console.log(items, "before mount")
 
    
     async function generate({startDate, endDate}){
-         console.log(startDate, "start")
-         console.log(endDate, "end")
         setStart(startDate)
         setEnd(endDate)
         let plans = await CapstoneApi.generateList(startDate, endDate);
-        console.log(plans)
         setItems(plans);
     }
 
      async function remove(id){
-        console.log("removing:", id)
         await CapstoneApi.removeFromList(+id)
         setItems(items.filter((_,index) => index !== id))
     }

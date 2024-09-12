@@ -7,7 +7,6 @@ import "./PlanDay.css"
 
 
 const PlanDay = ({day}) => {
-    console.log(day, "day")
 
     const initialState = [];
     const [plan, setPlan] = useState(initialState);
@@ -30,7 +29,6 @@ const PlanDay = ({day}) => {
  async function getPlanDay(day){
     try{
         const response = await CapstoneApi.getPlanDay(day)
-        console.log(response, "response")
         initialState.push(response)
             setPlan(initialState)
         }
@@ -38,7 +36,6 @@ const PlanDay = ({day}) => {
             return <h3>No plan on that date</h3>
         }
     }
-        console.log(plan, "plan")
  
     async function post({date, slot, position, id,servings,title, type } ){
         console.log(date, "date");

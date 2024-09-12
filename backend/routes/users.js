@@ -23,7 +23,7 @@ const router = express.Router();
  * Authorization required: admin
 */
 router.post("/", ensureAdmin, async function(req,res,next){
-    console.log("hi", "post users")
+   
     try{
         const validator = jsonschema.validate(req.body,userNewSchema);
         if(!validator.valid){
