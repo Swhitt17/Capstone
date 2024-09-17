@@ -36,7 +36,7 @@ const ListAddForm = ({addItem}) => {
                     />
                    </div>
 
-            <button className="btn btn-success float-right" onClick={handleSubmit}>Submit</button>
+            <button className="btn btn-success float-right" >Submit</button>
 
               </form>
              </div>

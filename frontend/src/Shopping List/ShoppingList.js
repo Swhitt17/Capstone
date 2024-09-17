@@ -10,7 +10,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 const ShoppingList = () => {
 
 
-   const [items, setItems] = useState("");
+   const [list, setList] = useState([]);
+   const [items, setItems]= useState([]);
     const [start, setStart ] = useState("")
     const [end, setEnd] = useState("")
     
@@ -22,14 +23,24 @@ const ShoppingList = () => {
 
     async function show(){
            let itemsRes = await CapstoneApi.getList();
-           setItems(itemsRes);  
+           console.log(itemsRes.aisles, "items")
+           setList(itemsRes.aisles);  
         
     }
    
-    
+    console.log(list, "list")
     async function addItem (newItem){
-        await CapstoneApi.postList(newItem)
-        setItems(items => [...items, newItem])
+      let res =  await CapstoneApi.postList(newItem)
+      console.log(res, "res")
+        // setList(list => [...list, res])
+        // console.log([...items, newItem], "item array")
+        // console.log(items, "items2")
+        // console.log(list, "list2")
+        const obj = list[list.length-1]
+        const updatedItems = [...obj.items]
+        updatedItems.push(res)
+        setList(list => [...list,{...obj,items:updatedItems}])
+        // console.log(updatedItems, "updated")
     }
 
    
@@ -37,12 +48,12 @@ const ShoppingList = () => {
         setStart(startDate)
         setEnd(endDate)
         let plans = await CapstoneApi.generateList(startDate, endDate);
-        setItems(plans);
+        setList(plans);
     }
 
      async function remove(id){
         await CapstoneApi.removeFromList(+id)
-        setItems(items.filter((_,index) => index !== id))
+        setList(list.filter((_,index) => index !== id))
     }
 
 
@@ -51,17 +62,15 @@ const ShoppingList = () => {
         <div className="ShoppingList">
             <h2 className="ShoppingList-title">Shopping List</h2>
            
-            {items.length > 0 ? (
+            {list.length > 0 ? (
                 <>
                 <div className="ShoppingList-list">
                     <ul className="list">
                         <div className="vertical"></div>  
-                     {items.aisles.map((item, index) => (
+                     {list.length > 0 && list.map((item, index) => (
                         <div key={index}>
                         {item.items.map((t, i) => (
-                            <> 
                          <li className="list-item" key={i}><span> {t.name} Metric: {t.measures.metric.amount}{t.measures.metric.unit} Imperial: {t.measures.us.amount}{t.measures.us.unit}</span><button onClick={() => remove(t.id)}><FontAwesomeIcon icon="fa-solid fa-rectangle-xmark" /></button></li>
-                         </>
                         ))}
                      
                       </div>

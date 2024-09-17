@@ -69,7 +69,7 @@ class CapstoneApi{
     }
 
     static async postList(newItem){
-        let res = await this.request(`lists`, {item:newItem, parse:true} , "post" );
+        let res = await this.request(`lists`, {item:newItem,aisle:"" ,parse:true} , "post" );
         return res;
     }
 
